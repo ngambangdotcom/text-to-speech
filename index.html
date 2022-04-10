@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TTS</title>
+</head>
+<body>
+Ketikan Disini
+<textarea id="text" style="width:100%" rows="5"></textarea>
+Volume <br>
+<input type="range" id="volume" min="0" max="1.0" step="0.1" value="1" id="scale">
+<br>
+Kecepatan <br>
+<input type="range" id="speed" min="0" max="1.0" step="0.1" value="1" id="scale">
+<br>
+Tinggi nada <br>
+<input type="range" id="pitch" min="0" max="1.0" step="0.2" value="2" id="scale">
+<br>
+<button onclick="coba()">Dengarkan</button>
+<script>
+function coba(){
+if ('speechSynthesis' in window) {
+    
+    var msg = new SpeechSynthesisUtterance();
+    var voices = window.speechSynthesis.getVoices();
+    msg.text = document.querySelector("#text").value;
+    msg.volume = document.querySelector("#volume").value;; // dari  0 sampai 1
+    msg.rate = document.querySelector("#speed").value;; // dari  0 sampai 1
+    msg.pitch = document.querySelector("#pitch").value;; // dari  0 sampai  2
+    
+    for(i = 0; i < voices.length ; i++) {
+        if(voices[i].name === "Google Bahasa Indonesia") {
+            msg.voice = voices[i];
+        }
+    }
+    
+    msg.lang  = 'id-ID';
+    window.speechSynthesis.speak(msg);
+
+}else{
+  alert("Maaf browser anda tidak mendukung !");
+}
+}
+</script>
+</body>
+</html>
